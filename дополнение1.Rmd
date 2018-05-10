@@ -1,0 +1,24 @@
+---
+title: "дополнение к практике"
+author: "A.Lukyanova"
+date: '10 мая 2018 г '
+output: word_document
+---
+
+Локальная регрессия для вероятности.
+
+```{r logit regression, message=FALSE}
+my.seed <- 1
+data(Boston)
+attach(Boston)
+
+fit_logit <- glm(I(crim > 30) ~ poly(nox, 3), data = Boston, family="gaussian")
+fit_logit
+
+gam.lr <- gam(I(crim > 30) ~  s(nox, df = 5) , 
+              family = 'binomial', data = Boston)
+gam.lr
+
+plot(gam.lr, se = T, col = 'green')
+summary(gam.lr)
+```
